@@ -8,8 +8,6 @@ const PORT = 3000;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-
-
 app.use(express.static("public"));
 
 //HTML routes
@@ -42,5 +40,9 @@ app.post("/api/notes", (req, res) => {
     } )
     
 })
+
+// app.delete("/api/notes/:id", (req, res) => {
+//     res.sendFile(path.join(__dirname, "/db/db.json"),
+// })
 
 app.listen(PORT, () => console.log(`listening to ${PORT}`))
