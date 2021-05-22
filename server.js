@@ -8,11 +8,18 @@ const PORT = 3000;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+
+
+app.use(express.static("public"));
+
 //HTML routes
+
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, './public/index.html')));
 app.get('/notes', (req, res) => res.sendFile(path.join(__dirname, './public/notes.html')));
 
-//Data Route
+
+
+//Data Routes
 app.get("/api/notes", (req, res) => {
     fs.readFile(path.join(__dirname, "/db/db.json"), 'utf8', (error, data) => {
         res.json(JSON.parse(data))
