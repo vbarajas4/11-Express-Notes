@@ -1,13 +1,18 @@
+//Dependencies Packages
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
 
+// Sets up the Express App
 const app = express();
+
+// Sets port for listening and let heroku decide on port
 const PORT = process.env.PORT || 3000;
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+//files in a directory named public
 app.use(express.static("public"));
 
 //HTML routes
@@ -26,8 +31,7 @@ app.get("/api/notes", (req, res) => {
 })
 
 app.post("/api/notes", (req, res) => {
-    console.log(req.body)
-    
+    console.log(req.body)    
     
     fs.readFile(path.join(__dirname, "/db/db.json"), 'utf8', (error, data) => {
         const notes = JSON.parse(data) 
