@@ -35,7 +35,8 @@ app.post("/api/notes", (req, res) => {
     
     fs.readFile(path.join(__dirname, "/db/db.json"), 'utf8', (error, data) => {
         const notes = JSON.parse(data) 
-        notes.push(req.body)
+        const id = notes.length+1
+        notes.push({...req.body, id})
 
     fs.writeFile(path.join(__dirname, "/db/db.json"), JSON.stringify(notes), error => {
         console.log('success')
@@ -44,6 +45,21 @@ app.post("/api/notes", (req, res) => {
     } )
     
 })
+
+app.get("/api/notes/:id", (req, res) => {
+    console.log(req.params.id);
+    const id = parseInt(req.params.id);
+    fs.readFile(path.join(__dirname, "/db/db.json"), "utf8", (err, data) => {
+        res.json(id[parseInt(req.params.id)]);
+    })
+    for (let i = 0; i < id.length; i++) {
+        const idNote = id[i];
+        if (id === idNote.title) {
+          return res.json(idNote);
+        }
+        id.push(idNote);
+    }
+});
 
 // app.delete("/api/notes/:id", (req, res) => {
 //     res.sendFile(path.join(__dirname, "/db/db.json"),
